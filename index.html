@@ -1,0 +1,57 @@
+<html>
+<head>
+<link rel="stylesheet" href="./lib/treeselectjs.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link href="https://www.cssscript.com/demo/sticky.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div class="family_tree" >
+</div>
+
+
+  <button id="result-Btn" onclick="callBtnVals()"
+    style="margin: 10px 10px; padding: 5px;"
+  >Test Get Button</button>
+</body>
+
+<script type="module"
+  src="./js/tree.js"
+>
+
+</script>
+<script >
+
+  function callBtnVals(){
+    let childOfArr = [];
+    let family_name = "";
+    if(window.treeRelatinVals){
+      console.log('Result', treeValues, treeRelatinVals);
+      treeRelatinVals.map((relateVal) => {
+        if (relateVal.length === undefined){
+          const existItem = childOfArr.find(chItem => chItem == relateVal.childOf);
+          if(!existItem){
+              childOfArr.push(relateVal.childOf);
+              family_name += relateVal.childOf + ",";
+          }
+        }
+        else{
+          console.log(relateVal);
+          relateVal.map((row) => {
+            const existItem = childOfArr.find(chItem => chItem == row.childOf);
+            if(!existItem){
+                childOfArr.push(row.childOf);
+                family_name += row.childOf + ",";
+            }
+          })
+        }
+      })
+      family_name = family_name.slice(0, family_name.length - 2);
+      console.log("------Familes ------------ "+ family_name);
+      console.log("------Api Ids ------------ "+ treeValues);
+    }else{
+      console.log("Nothing Selected. Please select any family.");
+    }
+  }
+</script>
+</html>
